@@ -12,6 +12,7 @@ import br.com.project.interfaces.controller.noauth.AbstractPublicController;
 import br.com.project.interfaces.dto.UserDTO;
 import br.com.project.interfaces.dto.register.RegisterUserRequestDTO;
 import br.com.project.interfaces.dto.register.RegisterUserResponseDTO;
+import jakarta.validation.Valid;
 
 @RestController
 public class RegisterController extends AbstractPublicController {
@@ -26,7 +27,7 @@ public class RegisterController extends AbstractPublicController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterUserResponseDTO> registerUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<RegisterUserResponseDTO> registerUser(@Valid @RequestBody UserDTO userDTO) {
         RegisterUserRequestDTO registerRequest = modelMapper.map(userDTO, RegisterUserRequestDTO.class);
         RegisterUserResponseDTO response = registerUserUseCase.execute(registerRequest);
         return ResponseEntity.ok(response);
