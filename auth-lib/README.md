@@ -111,6 +111,6 @@ Use the following `curl` command to test authentication:
 ```bash
 curl --request GET \
   --url http://localhost:8080/api/test/ \
-  --header 'Authorization: your_token' \JSESSIONID=AE98C018C9C2BCEED8420CDF24C80CF1'
+  --header 'Authorization: your_token' 
 ```
 
