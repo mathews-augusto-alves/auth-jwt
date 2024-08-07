@@ -1,7 +1,9 @@
 br\com\project\interfaces\controller\noauth\AbstractPublicController.class
 br\com\project\domain\roles\repository\RolesRepository.class
+br\com\project\infrastructure\config\GlobalExceptionHandler.class
 br\com\project\interfaces\dto\UserDTO.class
 br\com\project\application\usecase\register\RegisterUserUseCase.class
+br\com\project\infrastructure\config\GlobalExceptionHandler$ErrorResponse.class
 br\com\project\interfaces\dto\register\RegisterUserRequestDTO.class
 br\com\project\application\service\user\UsersServiceImpl.class
 br\com\project\interfaces\controller\authenticated\test\TestController.class

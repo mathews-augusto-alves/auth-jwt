@@ -17,6 +17,7 @@ X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\domain\user\repos
 X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\adapter\mapper\MapConverter.java
 X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\config\AppConfig.java
 X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\config\CustomAuthenticationEntryPoint.java
+X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\config\GlobalExceptionHandler.java
 X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\config\JwtAuthenticationFilter.java
 X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\config\ModelMapperConfig.java
 X:\Estudos\Java\auth-jwt\auth-lib\src\main\java\br\com\project\infrastructure\config\SecurityConfig.java
