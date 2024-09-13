@@ -1,7 +1,6 @@
 package br.com.project.interfaces.controller.noauth.register;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,6 @@ public class RegisterController extends AbstractPublicController {
     private RegisterUserUseCase registerUserUseCase;
     private ModelMapper modelMapper;
 
-    @Autowired
     public RegisterController(RegisterUserUseCase registerUserUseCase, ModelMapper modelMapper) {
         this.registerUserUseCase = registerUserUseCase;
         this.modelMapper = modelMapper;

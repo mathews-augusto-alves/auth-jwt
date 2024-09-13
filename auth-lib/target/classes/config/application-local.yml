@@ -18,7 +18,11 @@ spring:
     h2:
         console:
             enabled: true
-            path: /h2-console
+            path: /public/h2-console
             settings:
                 trace: false
                 web-allow-others: true
+    messages:
+        basename: ValidationMessages
+    mvc:
+        spring.web.locale-resolver: accept-header

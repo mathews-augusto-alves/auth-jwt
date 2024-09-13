@@ -69,7 +69,7 @@ public class SecurityConfig {
             )
             .headers(headers ->
                 headers
-                    .frameOptions().sameOrigin()
+                    .frameOptions().disable()
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, usersService), UsernamePasswordAuthenticationFilter.class);
 

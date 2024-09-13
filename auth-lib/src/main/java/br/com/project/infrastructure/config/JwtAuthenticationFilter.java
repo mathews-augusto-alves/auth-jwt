@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.project.application.service.user.UsersServiceImpl;
-import br.com.project.domain.user.model.Users;
 import br.com.project.infrastructure.security.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,12 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.io.IOException;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Filter that processes JWT authentication for incoming HTTP requests.
@@ -62,18 +57,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String username = jwtTokenProvider.getUsername(token);
 
             try {
-                Users user = usersService.findByUsername(username)
+                usersService.findByUsername(username)
                         .orElseThrow(() -> new RuntimeException("User not found."));
 
-                Set<GrantedAuthority> authorities = user.getRoles().stream()
-                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-                        .collect(Collectors.toSet());
-
                 Authentication authentication = new UsernamePasswordAuthenticationToken(
-                        username, null, authorities);
+                        username, null);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                logger.info("User '{}' authenticated with roles: {}", username, authorities);
+                logger.info("User '{}' authenticated with roles: {}", username);
             } catch (RuntimeException e) {
                 logger.error("Authentication error: {}", e.getMessage());
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");

@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,6 @@ public class UsersServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UsersServiceImpl.class);
     private final UserJpaRepository userJpaRepository;
 
-    @Autowired
     public UsersServiceImpl(UserJpaRepository userJpaRepository) {
         this.userJpaRepository = userJpaRepository;
     }

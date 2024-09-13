@@ -3,7 +3,6 @@ package br.com.project.application.usecase.authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,6 @@ public class AuthenticateUserUseCase implements UseCase<AuthenticationRequestDTO
     private final JwtTokenProvider jwtTokenProvider;
     private final UsersServiceImpl usersServiceImpl;
 
-    @Autowired
     public AuthenticateUserUseCase(UsersServiceImpl usersServiceImpl, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.usersServiceImpl = usersServiceImpl;
         this.passwordEncoder = passwordEncoder;
@@ -43,7 +41,7 @@ public class AuthenticateUserUseCase implements UseCase<AuthenticationRequestDTO
             throw new IllegalArgumentException("Invalid username or password.");
         }
 
-        String token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+        String token = jwtTokenProvider.createToken(user.getUsername());
         logger.info("User authenticated: {}", request.getUsername());
 
         return new AuthenticationResponseDTO(token);

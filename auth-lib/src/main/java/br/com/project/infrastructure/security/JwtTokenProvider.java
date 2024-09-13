@@ -1,13 +1,10 @@
 package br.com.project.infrastructure.security;
 
 import java.util.Date;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import br.com.project.domain.roles.model.Roles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -32,9 +29,8 @@ public class JwtTokenProvider {
      * @param roles the set of roles to be included in the token.
      * @return the generated JWT token as a string.
      */
-    public String createToken(String username, Set<Roles> roles) {
+    public String createToken(String username) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", roles.stream().map(Roles::getName).collect(Collectors.toList()));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);

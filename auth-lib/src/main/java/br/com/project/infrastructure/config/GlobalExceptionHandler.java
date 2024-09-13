@@ -1,5 +1,7 @@
 package br.com.project.infrastructure.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,7 +13,10 @@ import org.springframework.web.context.request.WebRequest;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -19,6 +24,9 @@ import java.util.Map;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+     @Autowired
+    private MessageSource messageSource;
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handleRuntimeException(RuntimeException ex, WebRequest request) {
@@ -44,16 +52,19 @@ public class GlobalExceptionHandler {
      * @param ex       The validation exception.
      * @param request  The web request.
      * @return A {@link ResponseEntity} containing validation error details.
+     * @throws Exception 
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        StringBuilder message = new StringBuilder();
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex, Locale locale) throws Exception {
+        ErrorResponse response = new ErrorResponse(HttpStatus.BAD_REQUEST.toString(), 
+        messageSource.getMessage("validation.failed", null, locale));
+        
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
-            message.append(fieldName).append(": ").append(errorMessage).append("; ");
+            response.getErrorMessages().add(errorMessage);
         });
-        return new ResponseEntity<>(new ErrorResponse("Validation failed", message.toString()), HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -64,6 +75,7 @@ public class GlobalExceptionHandler {
     static class ErrorResponse {
         private String error;
         private String message;
+        List<String> errorMessages = new ArrayList<>();
 
         public ErrorResponse(String error, String message) {
             this.error = error;
